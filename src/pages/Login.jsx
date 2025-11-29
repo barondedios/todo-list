@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useTheme from "../hooks/useTheme"; // optional, if you want theme styles
 
 export default function Login() {
   const [users, setUsers] = useState([]);
@@ -8,6 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { theme } = useTheme(); // optional theme hook
 
   // ✅ Use Vite environment variables
   const USERS_URL = import.meta.env.VITE_USERS_URL;
@@ -41,11 +43,11 @@ export default function Login() {
     }
 
     setError("");
-    navigate("/todos"); // Redirect after successful login
+    navigate("/home"); // Redirect to Home page instead of /todos
   };
 
   return (
-    <div className="login-container">
+    <div className={`login-container ${theme}`}>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
